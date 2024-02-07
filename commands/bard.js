@@ -11,7 +11,7 @@ module.exports = (bot) => {
             return;
         }
 
-        const url = `https://f33589e3-f232-4848-afd2-6d119eef05b7-00-3p2d0cs44nf2z.worf.replit.dev/ask?question=${question}`;
+        const url = `https://deafening-calm-dos.vercel.app/ask?question=${question}`;
 
         try {
             const response = await axios.get(url);
