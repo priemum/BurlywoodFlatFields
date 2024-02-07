@@ -11,11 +11,11 @@ module.exports = (bot) => {
             return;
         }
 
-        const url = `https://deafening-calm-dos.vercel.app/ask?question=${question}`;
+        const url = `https://api-samir.onrender.com/api/bard?question=${question}`;
 
         try {
             const response = await axios.get(url);
-            const content = response.data.content;
+            const content = response.data.message;
 
             bot.sendMessage(chatId, `${content}`, { parse_mode: 'Markdown' });
         } catch (error) {
