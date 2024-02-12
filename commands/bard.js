@@ -11,11 +11,11 @@ module.exports = (bot) => {
             return;
         }
 
-        const url = `https://api-samir.onrender.com/api/bard?question=${question}`;
+        const url = `https://hercai.onrender.com/v3/hercai?question=${question}`;
 
         try {
             const response = await axios.get(url);
-            const content = response.data.message;
+            const content = response.data.reply;
 
             bot.sendMessage(chatId, `${content}`, { parse_mode: 'Markdown' });
         } catch (error) {
