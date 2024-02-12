@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports = (bot) => {
-    bot.onText(/\/ويكيبيديا (.+)/, async (msg, match) => {
+    bot.onText(/\/ويكي (.+)/, async (msg, match) => {
         const query = match[1]; // البحث
         
         try {
