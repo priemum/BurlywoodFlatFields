@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports = (bot) => {
-    bot.onText(/بوت/, async (msg) => {
+    bot.onText(/bard/, async (msg) => {
         const chatId = msg.chat.id;
         const command = msg.text.split(' ')[0];
         const question = msg.text.substring(command.length + 1);

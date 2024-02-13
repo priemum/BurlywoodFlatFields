@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/generative-ai": "^0.2.0",
     "@railway/cli": "^3.5.2",
     "@types/node": "^18.0.6",
     "axios": "^1.6.6",
