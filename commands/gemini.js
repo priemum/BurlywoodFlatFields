@@ -12,7 +12,7 @@ module.exports = (bot) => {
             const result = await model.generateContent(searchQuery);
             const response = await result.response;
             const text = response.text();
-            bot.sendMessage(chatId, text);
+            bot.sendMessage(chatId, `${text}`, { parse_mode: 'Markdown' });
         } catch (error) {
             console.error("حدث خطأ أثناء توليد المحتوى:", error);
             bot.sendMessage(chatId, "حدث خطأ أثناء محاولة توليد المحتوى. الرجاء المحاولة مرة أخرى لاحقًا.");
