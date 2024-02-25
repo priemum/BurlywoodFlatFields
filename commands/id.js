@@ -4,7 +4,12 @@ module.exports = (bot) => {
         const userId = msg.from.id;
         
         try {
-            const userInfo = await bot.getChat(userId);
+            let targetUserId = userId;
+            if (msg.reply_to_message && msg.reply_to_message.from) {
+                targetUserId = msg.reply_to_message.from.id;
+            }
+            
+            const userInfo = await bot.getChat(targetUserId);
             const firstName = userInfo.first_name;
             const lastName = userInfo.last_name ? userInfo.last_name : '';
             const username = userInfo.username ? `(@${userInfo.username})` : '';
@@ -17,7 +22,7 @@ module.exports = (bot) => {
             if (userInfo.is_admin) {
                 status = 'مشرف';
             } else {
-                const chatMember = await bot.getChatMember(chatId, userId);
+                const chatMember = await bot.getChatMember(chatId, targetUserId);
                 if (chatMember.status === 'creator') {
                     status = 'المالك';
                 } else {
@@ -26,13 +31,14 @@ module.exports = (bot) => {
             }
             const userDescWithStatus = `${userDescWithBio}\nالحالة: ${status}`;
 
-            const photo = await bot.getUserProfilePhotos(userId, 0, 1);
+            const photo = await bot.getUserProfilePhotos(targetUserId, 0, 1);
             if (photo.total_count > 0) {
                 const fileId = photo.photos[0][0].file_id;
                 bot.sendPhoto(chatId, fileId, { caption: userDescWithStatus });
             } else {
                 bot.sendMessage(chatId, "لا يوجد صورة للمستخدم.\n" + userDescWithStatus);
             }
+            
         } catch (error) {
             console.error("Error fetching user photo:", error);
             bot.sendMessage(chatId, "حدث خطأ أثناء جلب صورة المستخدم.");
