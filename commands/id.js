@@ -1,5 +1,5 @@
 module.exports = (bot) => {
-    bot.onText(/\/getinfo/, async (msg) => {
+    bot.onText(/\/ايدي/, async (msg) => {
         const chatId = msg.chat.id;
         const userId = msg.from.id;
 
