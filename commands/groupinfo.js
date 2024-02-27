@@ -1,24 +1,28 @@
-// groupInfoCommand.js
 module.exports = (bot) => {
     bot.onText(/\/groupinfo/, (msg) => {
         const chatId = msg.chat.id;
 
         bot.getChat(chatId).then((chat) => {
-            bot.getChatMembersCount(chatId).then((count) => {
+            Promise.all([
+                bot.getChatMemberCount(chatId),
+                bot.getChatAdministrators(chatId)
+            ]).then(([count, admins]) => {
                 const groupInfo = `
                 معلومات المجموعة:
                 - اسم المجموعة: ${chat.title}
+                - وصف المجموعة: 
+${chat.description || 'لا يوجد'}
                 - معرف المجموعة: ${chat.id}
                 - نوع المجموعة: ${chat.type}
                 - عدد الأعضاء: ${count}
+                - عدد المشرفين: ${admins.length}
                 - يمكن للأعضاء دعوة الآخرين: ${chat.can_invite_users ? 'نعم' : 'لا'}
                 - معرف المالك: ${chat.owner ? chat.owner.id : 'غير معروف'}
                 - الرابط الدائم للمجموعة: ${chat.invite_link ? chat.invite_link : 'غير متاح'}
                 `;
-
                 bot.sendMessage(chatId, groupInfo);
             }).catch((error) => {
-                console.error('Error getting group members count:', error);
+                console.error('Error getting group info:', error);
             });
         }).catch((error) => {
             console.error('Error getting group info:', error);
