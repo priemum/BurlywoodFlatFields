@@ -1,6 +1,4 @@
 const axios = require('axios');
-const fs = require('fs');
-const request = require('request');
 
 module.exports = (bot) => {
   bot.onText(/\/فيلم (.+)/, async (msg, match) => {
@@ -26,19 +24,17 @@ module.exports = (bot) => {
         const language = movie.original_language;
         const overview = movie.overview;
         const rating = movie.vote_average;
-        const poster = movie.poster_path;
+        const poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
         const genres = movie.genre_ids;
         const popularity = movie.popularity;
         const voteCount = movie.vote_count;
 
-        let callback = function () {
-          return bot.sendPhoto(chatId, fs.createReadStream(__dirname + `juswa.png`), {
-            caption: `*🎥 العنوان:* ${title}\n---\n*تاريخ الصدور:* ${released}\n*عام:* ${year}\n*اللغة:* ${language}\n*التقييم:* ${rating}\n*التصنيفات:* ${genres}\n*الشهرة:* ${popularity}\n*عدد التصويتات:* ${voteCount}\n*نظرة عامة:* ${overview}`,
-            parse_mode: 'Markdown'
-          }, () => fs.unlinkSync(__dirname + `juswa.png`));
-        };
+        const caption = `*🎥 العنوان:* ${title}\n---\n*تاريخ الصدور:* ${released}\n*عام:* ${year}\n*اللغة:* ${language}\n*التقييم:* ${rating}\n*التصنيفات:* ${genres}\n*الشهرة:* ${popularity}\n*عدد التصويتات:* ${voteCount}\n*نظرة عامة:* ${overview}`;
 
-        request(`https://image.tmdb.org/t/p/w500/${poster}`).pipe(fs.createWriteStream(__dirname + `juswa.png`)).on("close", callback);
+        bot.sendPhoto(chatId, poster, {
+          caption: caption,
+          parse_mode: 'Markdown'
+        });
       } else {
         bot.sendMessage(chatId, 'عذرًا، لم يتم العثور على نتائج. يرجى التحقق من كتابة الاسم بشكل صحيح');
       }
