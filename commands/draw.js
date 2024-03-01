@@ -17,7 +17,10 @@ module.exports = (bot) => {
     }
     
     try {
-      const drawUrl = `https://ai-tools.replit.app/pixart?prompt=${query}&styles=${styleChoice}`;
+      const translatedInput = await translateText(query, "en");
+      const prompt = encodeURI(translatedInput.trim());
+
+      const drawUrl = `https://ai-tools.replit.app/pixart?prompt=${prompt}&styles=${styleChoice}`;
       const response = await axios.get(drawUrl, { responseType: "arraybuffer" });
       const imageBuffer = Buffer.from(response.data);
 
@@ -28,3 +31,10 @@ module.exports = (bot) => {
     }
   });
 };
+
+async function translateText(text, targetLanguage) {
+  const translationUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLanguage}&dt=t&q=${encodeURI(text)}`;
+  const translationRes = await axios.get(translationUrl);
+  const translatedText = translationRes.data[0].map(arr => arr[0]).join(' ');
+  return translatedText.trim();
+}
