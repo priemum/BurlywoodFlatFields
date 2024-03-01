@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = (bot) => {
   bot.onText(/^\/draw(?:\s+help)?$/, (msg) => {
     const chatId = msg.chat.id;
-    const helpMessage = "مرحبًا بك في أمر الرسم، يُرجى اختيار رقم الستايل المفضل:\n1. سينمائي\n2. فوتوغرافي\n3. أنيمي\n4. مانغا\n5. فن رقمي\n6. بيكسل آرت\n7. فن الخيال\n8. نيون بانك\n9. نموذج ثلاثي الأبعاد";
+    const helpMessage = "يمكنك استخدام الأمر `/draw` مع النص المراد رسمه متبوعًا برقم الستايل المفضل:\n1. سينمائي\n2. فوتوغرافي\n3. أنيمي\n4. مانغا\n5. فن رقمي\n6. بيكسل آرت\n7. فن الخيال\n8. نيون بانك\n9. نموذج ثلاثي الأبعاد";
     bot.sendMessage(chatId, helpMessage);
   });
 
