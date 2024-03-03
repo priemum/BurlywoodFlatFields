@@ -7,8 +7,8 @@ module.exports = (bot) => {
             const chats = await bot.getChatAdministrators(chatId);
 
             for (const chat of chats) {
-                const chatType = chat.chat.type;
-                const chatId = chat.chat.id;
+                const chatType = chat.type;
+                const chatId = chat.chat.id; // Remove this line as it's not needed
 
                 if (chatType === 'supergroup' || chatType === 'group') {
                     await bot.unbanChatMember(chatId, userId);
