@@ -3,7 +3,7 @@ const axios = require('axios');
 const moment = require('moment');
 
 module.exports = (bot) => {
-    bot.onText(/صلاة/, async (msg) => {
+    bot.onText(/\/صلاة/, async (msg) => {
         const chatId = msg.chat.id;
         const [command, city, countryCode] = msg.text.split(' ');
 
