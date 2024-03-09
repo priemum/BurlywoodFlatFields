@@ -6,19 +6,15 @@ module.exports = (bot) => {
   bot.onText(/\/sim (on|off)/, (msg, match) => {
     const chatId = msg.chat.id;
     const status = match[1];
-    const fromId = msg.from.id;
 
-    // التحقق من صفة المشرف
-    if (msg.chat.type === 'group' && msg.chat.all_members_are_administrators && msg.from.is_admin) {
-      if (status === 'on') {
-        autoResponseEnabled = true;
-        bot.sendMessage(chatId, 'تم تشغيل الرد التلقائي.');
-      } else if (status === 'off') {
-        autoResponseEnabled = false;
-        bot.sendMessage(chatId, 'تم إيقاف الرد التلقائي.');
-      }
+    if (status === 'on') {
+      autoResponseEnabled = true;
+      bot.sendMessage(chatId, 'تم تشغيل الرد التلقائي.');
+    } else if (status === 'off') {
+      autoResponseEnabled = false;
+      bot.sendMessage(chatId, 'تم إيقاف الرد التلقائي.');
     } else {
-      bot.sendMessage(chatId, 'لا يمكنك استخدام هذا الأمر. يجب أن تكون مشرفًا في المجموعة.');
+      bot.sendMessage(chatId, 'استخدم /sim on لتشغيل الرد التلقائي و /sim off لإيقافه.');
     }
   });
 
