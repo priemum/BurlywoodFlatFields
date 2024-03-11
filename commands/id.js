@@ -10,10 +10,10 @@ module.exports = (bot) => {
             }
 
             const userInfo = await bot.getChat(targetUserId);
-            const username = userInfo.username ? userInfo.username : '';
-            const userDesc = `المستخدم: ${userInfo.first_name} ${userInfo.last_name ? userInfo.last_name : ''}`;
+            const userFullName = `${userInfo.first_name} ${userInfo.last_name ? userInfo.last_name : ''}`;
+            const userDesc = `📌❉ اسمه » ${userFullName}\n🎟❉ ايديه » ${targetUserId}\n🎗❉ معرفه » @${userInfo.username || 'غير متوفر'}`;
 
-            const bio = userInfo.bio ? `\nالنبذة الشخصية: ${userInfo.bio}` : '';
+            const bio = userInfo.bio ? `\n🎗❉ النبذة الشخصية: ${userInfo.bio}` : '';
             const userDescWithBio = `${userDesc}${bio}`;
 
             let status = '';
@@ -27,11 +27,11 @@ module.exports = (bot) => {
                     status = 'عضو';
                 }
             }
-            const userDescWithStatus = `${userDescWithBio}\nالحالة: ${status}`;
+            const userDescWithStatus = `${userDescWithBio}\n🎖❉ رتبته » ${status}`;
 
             const replyMarkup = JSON.stringify({
                 inline_keyboard: [
-                    [{ text: username, url: `https://t.me/${username}` }]
+                    [{ text: userFullName, url: `https://t.me/${userInfo.username}` }]
                 ]
             });
 
