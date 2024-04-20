@@ -11,7 +11,7 @@ module.exports = (bot) => {
             return;
         }
 
-        const url = `https://ai-tools.replit.app/gpt?prompt=${question}&uid=9`;
+        const url = `https://deku-rest-api.replit.app/gpt4?prompt=${question}&uid=100`;
 
         try {
             const response = await axios.get(url);
