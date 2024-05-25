@@ -6,7 +6,7 @@ const bot = new TelegramBot(botToken, { polling: true });
 
 // تحميل الأوامر من ملفات مجلد الأوامر
 const commandsFolder = './commands/';
-
+       
 fs.readdirSync(commandsFolder).forEach(file => {
     const command = require(`./commands/${file}`);
     command(bot);
